@@ -1,21 +1,395 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-<title lang="en">カバのウェブサイト- Wikipedia</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Profile | Personal Website</title>
+ 
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+ 
+    html {
+      scroll-behavior: smooth;
+    }
+ 
+    body {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      background: #f7f7f5;
+      color: #222;
+      line-height: 1.8;
+    }
+ 
+    /* ナビゲーション */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 8%;
+      border-bottom: 1px solid #e5e5e5;
+    }
+ 
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+      letter-spacing: 3px;
+    }
+ 
+    nav a {
+      text-decoration: none;
+      color: #555;
+      margin-left: 24px;
+      font-size: 13px;
+      transition: color 0.3s;
+    }
+ 
+    nav a:hover {
+      color: #999;
+    }
+ 
+    /* メインビジュアル */
+    .hero {
+      min-height: 75vh;
+      padding: 100px 8%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+ 
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 350px;
+      height: 350px;
+      background: linear-gradient(135deg, #e4e4e0, #f7f7f5);
+      border-radius: 50%;
+      right: -100px;
+      top: 80px;
+      z-index: -1;
+    }
+ 
+    .eyebrow {
+      font-size: 12px;
+      letter-spacing: 4px;
+      color: #888;
+      margin-bottom: 20px;
+    }
+ 
+    .hero h1 {
+      font-size: clamp(48px, 9vw, 100px);
+      line-height: 1.15;
+      letter-spacing: -3px;
+      margin-bottom: 25px;
+    }
+ 
+    .hero h1 span {
+      color: #aaa;
+    }
+ 
+    .hero p {
+      color: #666;
+      font-size: 15px;
+      max-width: 450px;
+    }
+ 
+    .scroll {
+      margin-top: 50px;
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: #888;
+    }
+ 
+    /* 共通セクション */
+    section {
+      padding: 90px 8%;
+    }
+ 
+    .section-label {
+      color: #999;
+      font-size: 11px;
+      letter-spacing: 4px;
+      margin-bottom: 10px;
+    }
+ 
+    .section-title {
+      font-size: 36px;
+      margin-bottom: 35px;
+      letter-spacing: -1px;
+    }
+ 
+    /* プロフィール */
+    .about {
+      background: #fff;
+    }
+ 
+    .about-text {
+      max-width: 650px;
+      color: #666;
+      margin-bottom: 35px;
+    }
+ 
+    .profile-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+ 
+    .profile-card {
+      padding: 25px;
+      background: #f7f7f5;
+      border: 1px solid #eee;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+ 
+    .profile-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px #0000000a;
+    }
+ 
+    .profile-card small {
+      display: block;
+      color: #999;
+      font-size: 11px;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+ 
+    .profile-card h3 {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+ 
+    .profile-card p {
+      color: #777;
+      font-size: 13px;
+    }
+ 
+    /* 趣味 */
+    .hobbies {
+      background: #f7f7f5;
+    }
+ 
+    .hobby-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+ 
+    .hobby {
+      padding: 30px;
+      background: #fff;
+      border: 1px solid #eee;
+      transition: background 0.3s, color 0.3s;
+    }
+ 
+    .hobby:hover {
+      background: #222;
+      color: #fff;
+    }
+ 
+    .hobby .number {
+      font-size: 12px;
+      color: #aaa;
+      letter-spacing: 2px;
+    }
+ 
+    .hobby h3 {
+      margin: 12px 0 5px;
+      font-size: 22px;
+    }
+ 
+    .hobby p {
+      font-size: 13px;
+      color: #888;
+    }
+ 
+    .hobby:hover p {
+      color: #ccc;
+    }
+ 
+    /* フッター */
+    footer {
+      background: #222;
+      color: #fff;
+      text-align: center;
+      padding: 45px 20px;
+    }
+ 
+    footer h2 {
+      font-size: 22px;
+      letter-spacing: 4px;
+      margin-bottom: 10px;
+    }
+ 
+    footer p {
+      color: #aaa;
+      font-size: 12px;
+    }
+ 
+    /* スクロール時のアニメーション */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(25px);
+      transition: opacity 0.8s, transform 0.8s;
+    }
+ 
+    .fade-in.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+ 
+    /* スマートフォン対応 */
+    @media (max-width: 650px) {
+      header {
+        padding: 20px 6%;
+      }
+ 
+      nav a {
+        margin-left: 10px;
+        font-size: 11px;
+      }
+ 
+      .hero {
+        padding: 80px 6%;
+        min-height: 65vh;
+      }
+ 
+      section {
+        padding: 65px 6%;
+      }
+ 
+      .profile-grid {
+        grid-template-columns: 1fr;
+      }
+ 
+      .hobby-list {
+        grid-template-columns: 1fr;
+      }
+ 
+      .section-title {
+        font-size: 30px;
+      }
+    }
+  </style>
 </head>
+ 
 <body>
-<article>
-<h1 lang="en">カバのウェブサイト</h1>
-<p>このウェブサイトは、神庭が作成したものです</a>
-アプリケーションの一つで、ハイパーテキストを利用してワールド
-ワイドウェブ上で情報を発信するために作られ、
-ワールドワイドウェブの<strong>基幹的役割</strong>をなしている。
-情報を発信するための文書構造を定義するために使われ、
-ある程度機械が理解可能な言語で、
-写真の埋め込みや、フォームの作成、
-ハイパーテキストによるHTML間の連携が可能である。</p>
-</article>
+ 
+  <header>
+    <div class="logo">MY PAGE.</div>
+ 
+    <nav>
+      <a href="#about">ABOUT</a>
+      <a href="#hobbies">HOBBIES</a>
+    </nav>
+  </header>
+ 
+  <main>
+    <div class="hero">
+      <div class="eyebrow">WELCOME TO MY WEBSITE</div>
+ 
+      <h1>My name is<br><span>YOUR NAME.</span></h1>
+ 
+      <p>
+        はじめまして。自分の好きなことや日常を紹介する、
+        シンプルなプロフィールサイトです。
+      </p>
+ 
+      <div class="scroll">SCROLL TO EXPLORE ↓</div>
+    </div>
+ 
+    <section class="about fade-in" id="about">
+      <div class="section-label">01 — ABOUT ME</div>
+      <h2 class="section-title">自己紹介。</h2>
+ 
+      <p class="about-text">
+        はじめまして！
+        大学生活を楽しみながら、好きなことに取り組んでいます。
+        このサイトでは、簡単なプロフィールと趣味を紹介します。
+        これから自分らしいページにしていきたいと思っています。
+      </p>
+ 
+      <div class="profile-grid">
+        <div class="profile-card">
+          <small>NAME</small>
+          <h3>あなたの名前</h3>
+          <p>ニックネームでもOK</p>
+        </div>
+ 
+        <div class="profile-card">
+          <small>SCHOOL</small>
+          <h3>大学生</h3>
+          <p>学部・学科を入力</p>
+        </div>
+ 
+        <div class="profile-card">
+          <small>PERSONALITY</small>
+          <h3>自分らしく</h3>
+          <p>性格や好きな言葉など</p>
+        </div>
+      </div>
+    </section>
+ 
+    <section class="hobbies fade-in" id="hobbies">
+      <div class="section-label">02 — MY FAVORITES</div>
+      <h2 class="section-title">好きなこと。</h2>
+ 
+      <div class="hobby-list">
+        <div class="hobby">
+          <div class="number">HOBBY 01</div>
+          <h3>🎮 GAME</h3>
+          <p>好きなゲームについて紹介。</p>
+        </div>
+ 
+        <div class="hobby">
+          <div class="number">HOBBY 02</div>
+          <h3>🎧 MUSIC</h3>
+          <p>お気に入りの音楽やアーティスト。</p>
+        </div>
+ 
+        <div class="hobby">
+          <div class="number">HOBBY 03</div>
+          <h3>📚 ANIME & BOOKS</h3>
+          <p>好きなアニメや漫画、本など。</p>
+        </div>
+ 
+        <div class="hobby">
+          <div class="number">HOBBY 04</div>
+          <h3>✨ MY LIFE</h3>
+          <p>日常の楽しみや挑戦したいこと。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+ 
+  <footer>
+    <h2>THANK YOU.</h2>
+    <p>Thank you for visiting my website.</p>
+    <p style="margin-top: 20px;">© 2026 MY PAGE.</p>
+  </footer>
+ 
+  <script>
+    const targets = document.querySelectorAll(".fade-in");
+ 
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+        }
+      });
+    }, {
+      threshold: 0.15
+    });
+ 
+    targets.forEach((target) => {
+      observer.observe(target);
+    });
+  </script>
+ 
 </body>
 </html>
